@@ -1,4 +1,8 @@
-# Getting Started with Create React App
+# Dad Jokeline
+
+This application is meant to be a site for all dads to come when the inevitable moment arrives to land those coveted DAD jokes. You will be able to display a random joke based on the type of joke as well as post your own jokes to the Father Forum.
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
