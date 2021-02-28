@@ -2,8 +2,6 @@
 
 body {
   margin: 0;
-}
-
-.header {
-  background: #606060;
+  text-align: center;
+  background-color: #131313;
 }

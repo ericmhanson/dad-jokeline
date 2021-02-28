@@ -1,6 +1,5 @@
-import Header from './Components/Header'
-import Jokes from './Components/Jokes'
-import './App.css';
+import Header from "./Components/Header";
+import Jokes from "./Components/Jokes";
 
 function App() {
   return (
