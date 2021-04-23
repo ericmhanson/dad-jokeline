@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://EricHanson:EricHanson@dadjokeline.on7rq.mongodb.net/DadJokeline?retryWrites=true&w=majority",
+    "jwtSecret": "jwtSecret"
+}
