@@ -21,7 +21,6 @@
   },
   "homepage": "https://github.com/ericmhanson/dad-jokeline",
   "dependencies": {
-    "@material-ui/icons": "^4.11.2",
     "bcryptjs": "^2.4.3",
     "concurrently": "^6.0.2",
     "config": "^3.3.6",
