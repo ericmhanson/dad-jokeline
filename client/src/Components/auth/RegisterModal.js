@@ -7,15 +7,23 @@ import {
   Typography,
   ThemeProvider,
   createMuiTheme,
+  Button
 } from "@material-ui/core";
 
 const useStyles = makeStyles({
-  register: {
+  card: {
     width: "40vw",
-    backgroundColor: "#1B1B1B",
+    backgroundColor: "grey",
     margin: "auto",
     marginTop: "10rem",
     boxShadow: "5px 5px 8px, -3px -3px 8px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  register: {
+      display: "flex",
+      flexDirection: "column",
   },
   title: {
     color: "white",
@@ -34,12 +42,12 @@ const RegisterModal = () => {
   const classes = useStyles();
 
   return (
-    <Card className={classes.register}>
+    <Card className={classes.card}>
       <CardContent>
         <Typography variant="h4" className={classes.title}>
           Register
         </Typography>
-        <form className={classes.root}>
+        <form className={classes.register}>
           <ThemeProvider theme={theme}>
             <TextField
               id="name"
@@ -56,6 +64,9 @@ const RegisterModal = () => {
           </ThemeProvider>
         </form>
       </CardContent>
+      <CardActions>
+        <Button>Register</Button>
+      </CardActions>
     </Card>
   );
 };
