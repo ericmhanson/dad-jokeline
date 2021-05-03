@@ -7,7 +7,7 @@ import {
   Typography,
   ThemeProvider,
   createMuiTheme,
-  Button
+  Button,
 } from "@material-ui/core";
 
 const useStyles = makeStyles({
@@ -22,8 +22,8 @@ const useStyles = makeStyles({
     alignItems: "center",
   },
   register: {
-      display: "flex",
-      flexDirection: "column",
+    display: "flex",
+    flexDirection: "column",
   },
   title: {
     color: "white",
@@ -32,14 +32,29 @@ const useStyles = makeStyles({
 
 const theme = createMuiTheme({
   palette: {
-      primary: {
-        main: "#ffffff",
-      }
+    primary: {
+      main: "#ffffff",
+    },
   },
 });
 
 const RegisterModal = () => {
   const classes = useStyles();
+
+  const [values, setValues] = React.useState({
+    name: "",
+    username: "",
+    password: "",
+    showPassword: false,
+  });
+
+  const handleClickShowPassword = () => {
+    setValues({ ...values, showPassword: !values.showPassword })
+  }
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault()
+  }
 
   return (
     <Card className={classes.card}>
@@ -49,11 +64,7 @@ const RegisterModal = () => {
         </Typography>
         <form className={classes.register}>
           <ThemeProvider theme={theme}>
-            <TextField
-              id="name"
-              label="Name"
-              variant="filled"
-            />
+            <TextField id="name" label="Name" variant="filled" />
             <TextField id="username" label="Username" variant="filled" />
             <TextField
               id="password"
