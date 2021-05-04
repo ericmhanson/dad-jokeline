@@ -1,14 +1,24 @@
+import React from "react";
 import {
   makeStyles,
   Card,
   CardContent,
   CardActions,
-  TextField,
   Typography,
   ThemeProvider,
   createMuiTheme,
   Button,
+  InputAdornment,
+  IconButton,
+  FormControl,
+  FilledInput,
+  InputLabel,
 } from "@material-ui/core";
+import { Visibility, VisibilityOff } from "@material-ui/icons";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { register } from "../../actions/authActions";
+import { clearErrors } from "../../actions/errorActions";
 
 const useStyles = makeStyles({
   card: {
@@ -38,7 +48,14 @@ const theme = createMuiTheme({
   },
 });
 
-const RegisterModal = () => {
+RegisterModal.propTypes = {
+  isAuthenticated: PropTypes.bool,
+  error: PropTypes.object.isRequired,
+  register: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired,
+};
+
+function RegisterModal(props) {
   const classes = useStyles();
 
   const [values, setValues] = React.useState({
@@ -46,15 +63,20 @@ const RegisterModal = () => {
     username: "",
     password: "",
     showPassword: false,
+    msg: null,
   });
 
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+
   const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword })
-  }
+    setValues({ ...values, showPassword: !values.showPassword });
+  };
 
   const handleMouseDownPassword = (event) => {
-    event.preventDefault()
-  }
+    event.preventDefault();
+  };
 
   return (
     <Card className={classes.card}>
@@ -62,24 +84,59 @@ const RegisterModal = () => {
         <Typography variant="h4" className={classes.title}>
           Register
         </Typography>
-        <form className={classes.register}>
-          <ThemeProvider theme={theme}>
-            <TextField id="name" label="Name" variant="filled" />
-            <TextField id="username" label="Username" variant="filled" />
-            <TextField
-              id="password"
-              label="Password"
-              type="password"
-              variant="filled"
+        <ThemeProvider theme={theme}>
+          <FormControl>
+            <InputLabel htmlFor="name">Name</InputLabel>
+            <FilledInput
+              id="name"
+              type="name"
+              onChange={handleChange("name")}
             />
-          </ThemeProvider>
-        </form>
+          </FormControl>
+
+          <FormControl>
+            <InputLabel htmlFor="username">Username</InputLabel>
+            <FilledInput
+              id="username"
+              type="username"
+              onChange={handleChange("username")}
+            />
+          </FormControl>
+
+          <FormControl>
+            <InputLabel htmlFor="password">Password</InputLabel>
+            <FilledInput
+              id="password"
+              type={values.showPassword ? "text" : "password"}
+              onChange={handleChange("password")}
+              value={values.password}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                  >
+                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </FormControl>
+        </ThemeProvider>
       </CardContent>
       <CardActions>
         <Button>Register</Button>
       </CardActions>
     </Card>
   );
-};
+}
 
-export default RegisterModal;
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  error: state.error,
+});
+
+export default connect(mapStateToProps, { register, clearErrors })(
+  RegisterModal
+);
